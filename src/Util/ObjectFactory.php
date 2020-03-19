@@ -32,6 +32,20 @@ class ObjectFactory
 			}
 		}
 
+		// Validate
+		// @TODO: properly validate
+		$errors = [];
+		if (\method_exists($instance, 'getValidations')) {
+			foreach ($instance::getValidations() as $field => $validation) {
+				if (!isset($instance->$field)) {
+					$errors[] = 'Missing field ' . $field;
+				}
+			}
+			if (sizeof($errors) > 0) {
+				throw new \Exception('Could not create instance of ' . $className . ': One or more required fields are missing');
+			}
+		}
+
 		return $instance;
 	}
 }

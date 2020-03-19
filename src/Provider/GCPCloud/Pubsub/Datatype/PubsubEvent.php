@@ -23,6 +23,14 @@ class PubsubEvent
 		];
 	}
 
+	public static function getValidations(): array
+	{
+		return [
+			'message' => null,
+			'subscription' => null,
+		];
+	}
+
 	###
 
 	public function getMessage(): PubsubMessage
